@@ -13,23 +13,16 @@ namespace ExpressionTrees.Task1.ExpressionsTransformer
 {
     class Program
     {
-        public static Expression<Func<int, int>> increpentExpression = (a) => a + 1;
-        public static Expression<Func<int, int>> decrementExpression = (a) => a - 1;
-
         static void Main(string[] args)
         {
 
             Console.WriteLine("Expression Visitor for increment/decrement.");
-            Console.WriteLine(increpentExpression);
-            var visitor = new IncDecExpressionVisitor();
 
             Expression<Func<int, int>> demoExpression = (a) => a + 1 + (a - 1) * (a + 1) * a * a * (a + 1) + (a - 1);
             var resultExp = new IncDecExpressionVisitor().VisitAndConvert(demoExpression, "");
             Console.WriteLine(resultExp);
 
-        // todo: feel free to add your code here
-
-        Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }
