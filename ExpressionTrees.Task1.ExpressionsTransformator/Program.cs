@@ -7,19 +7,29 @@
  * The results could be printed in console or checked via Debugger using any Visualizer.
  */
 using System;
+using System.Linq.Expressions;
 
 namespace ExpressionTrees.Task1.ExpressionsTransformer
 {
     class Program
     {
+        public static Expression<Func<int, int>> increpentExpression = (a) => a + 1;
+        public static Expression<Func<int, int>> decrementExpression = (a) => a - 1;
+
         static void Main(string[] args)
         {
+
             Console.WriteLine("Expression Visitor for increment/decrement.");
-            Console.WriteLine();
+            Console.WriteLine(increpentExpression);
+            var visitor = new IncDecExpressionVisitor();
 
-            // todo: feel free to add your code here
+            Expression<Func<int, int>> demoExpression = (a) => a + 1 + (a - 1) * (a + 1) * a * a * (a + 1) + (a - 1);
+            var resultExp = new IncDecExpressionVisitor().VisitAndConvert(demoExpression, "");
+            Console.WriteLine(resultExp);
 
-            Console.ReadLine();
+        // todo: feel free to add your code here
+
+        Console.ReadLine();
         }
     }
 }
