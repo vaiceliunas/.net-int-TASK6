@@ -18,7 +18,7 @@ namespace ExpressionTrees.Task1.ExpressionsTransformer
 
             Console.WriteLine("Expression Visitor for increment/decrement.");
 
-            Expression<Func<int, int>> demoExpression = (a) => a + 1 + (a - 1) * (a + 1) * a * a * (a + 1) + (a - 1);
+            Expression<Func<int, int>> demoExpression = (a) => a + 1 + (a - 1) * (a + 1) * a * a * (a + 1) + (a - 1) + 5;
             var resultExp = new IncDecExpressionVisitor().VisitAndConvert(demoExpression, "");
             Console.WriteLine(resultExp);
 
