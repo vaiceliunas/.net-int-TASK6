@@ -8,26 +8,25 @@ namespace ExpressionTrees.Task1.ExpressionsTransformer
     {
         protected override Expression VisitBinary(BinaryExpression node)
         {
-            if (node.NodeType == ExpressionType.Add)
+            switch (node.NodeType)
             {
-                var constant = ExpressionNodeHelpers.GetConstExpression(node);
-                var param = ExpressionNodeHelpers.GetParamExpression(node);
-                if (!ExpressionNodeValidations.IsNull(param) && 
-                    !ExpressionNodeValidations.IsNull(constant) && 
-                    ExpressionNodeValidations.IsInt(constant) && 
-                    ExpressionNodeValidations.Is1((int)constant.Value))
-                    return Expression.Increment(param);
-            }
+                case ExpressionType.Add:
+                {
+                    var constant = ExpressionNodeHelpers.GetConstExpression(node);
+                    var param = ExpressionNodeHelpers.GetParamExpression(node);
+                    if (ExpressionNodeValidations.ValidForIncDec(constant, param))
+                        return Expression.Increment(param);
+                    break;
+                }
 
-            if (node.NodeType == ExpressionType.Subtract)
-            {
-                var constant = ExpressionNodeHelpers.GetConstExpression(node);
-                var param = ExpressionNodeHelpers.GetParamExpression(node);
-                if (!ExpressionNodeValidations.IsNull(param) &&
-                    !ExpressionNodeValidations.IsNull(constant) &&
-                    ExpressionNodeValidations.IsInt(constant) &&
-                    ExpressionNodeValidations.Is1((int)constant.Value))
-                    return Expression.Decrement(param);
+                case ExpressionType.Subtract:
+                {
+                    var constant = ExpressionNodeHelpers.GetConstExpression(node);
+                    var param = ExpressionNodeHelpers.GetParamExpression(node);
+                    if (ExpressionNodeValidations.ValidForIncDec(constant, param))
+                        return Expression.Decrement(param);
+                    break;
+                }
             }
 
             return base.VisitBinary(node);
