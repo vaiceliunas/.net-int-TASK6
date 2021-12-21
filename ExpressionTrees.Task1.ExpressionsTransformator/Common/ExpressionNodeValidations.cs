@@ -22,5 +22,13 @@ namespace ExpressionTrees.Task1.ExpressionsTransformer.Common
         {
             return o == null;
         }
+
+        public static bool ValidForIncDec(ConstantExpression constant, ParameterExpression param)
+        {
+            return (!ExpressionNodeValidations.IsNull(param) &&
+                    !ExpressionNodeValidations.IsNull(constant) &&
+                    ExpressionNodeValidations.IsInt(constant) &&
+                    ExpressionNodeValidations.Is1((int) constant.Value));
+        }
     }
 }
